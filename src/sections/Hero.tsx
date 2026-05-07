@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react';
 
 import { useMaskSettings } from '../../constants';
 import ComingSoon from './ComingSoon';
+import FirstTextSection from './FirstTextSection';
 
 const Hero = () => {
   const { initialMaskPos, initialMaskSize, maskPos, maskSize } = useMaskSettings();
@@ -17,19 +18,30 @@ const Hero = () => {
 
     gsap.set('.entrance-message', { marginTop: '0vh' });
 
+    gsap.set('.first-text-section', {
+      maskImage: 'radial-gradient(circle at 50% 100vh, black 0%, transparent 0%)',
+      maskRepeat: 'no-repeat',
+      maskSize: '100% 100%',
+    });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.hero-section',
         start: 'top top',
         scrub: 2.5,
-        end: '+=200%',
+        end: '+=300%',
         pin: true,
       },
     });
 
     tl.to('.fade-out', { opacity: 0, ease: 'power1.inOut' })
       .to('.scale-out', { scale: 1, ease: 'power1.inOut' })
-      .fromTo('.mask-wrapper', { maskSize: initialMaskSize, maskPosition: initialMaskPos }, { maskSize, maskPosition: maskPos, ease: 'power1.inOut' }, '<')
+      .fromTo(
+        '.mask-wrapper',
+        { maskSize: initialMaskSize, maskPosition: initialMaskPos },
+        { maskSize, maskPosition: maskPos, ease: 'power1.inOut' },
+        '<'
+      )
       .to('.mask-wrapper', { opacity: 0 })
       .to(
         '.overlay-logo',
@@ -49,6 +61,21 @@ const Hero = () => {
           maskImage: 'radial-gradient(circle at 50% 0vh, black 50%, transparent 100%)',
         },
         '<'
+      )
+      .to('.entrance-message', { opacity: 1, duration: 1 })
+      .to('.entrance-message', {
+        duration: 1,
+        ease: 'power1.inOut',
+        maskImage: 'radial-gradient(circle at 50% 0vh, black 0%, transparent 0%)',
+      })
+      .to(
+        '.first-text-section',
+        {
+          duration: 1,
+          ease: 'power1.inOut',
+          maskImage: 'radial-gradient(circle at 50% 0vh, black 50%, transparent 100%)',
+        },
+        '-=0.5'
       );
   });
 
@@ -76,6 +103,7 @@ const Hero = () => {
       </div>
 
       <ComingSoon />
+      <FirstTextSection />
     </section>
   );
 };

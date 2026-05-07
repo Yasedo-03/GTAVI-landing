@@ -91,6 +91,12 @@ main {
       @apply size-full object-cover opacity-0 w-60 md:w-60 2xl:w-72 3xl:w-80;
     }
   }
+  .gradient-text {
+    @apply md:text-[2rem] text-[2rem]  !font-extrabold md:leading-[2rem] leading-[4.5rem] text-center bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 bg-clip-text text-transparent;
+  }
+  .first-text-section {
+    @apply absolute inset-0 z-30 overflow-hidden;
+  }
   .first-vd-wrapper {
     .first-vd {
       @apply size-full object-cover md:[object-position:50%_center] [object-position:75%_center];
