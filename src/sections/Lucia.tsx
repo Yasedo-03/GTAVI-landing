@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 
 const Lucia = () => {
   useGSAP(() => {
-    gsap.set('.lucia-life', { marginTop: '-80vh' });
+    gsap.set('.lucia-life', { marginTop: '-60vh' });
 
     gsap
       .timeline({
