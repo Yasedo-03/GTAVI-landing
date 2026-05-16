@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
 const JasonVideo = () => {
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useGSAP(() => {
     gsap.set('.jason-vd-wrapper', { marginTop: '-130vh' });
@@ -23,12 +23,10 @@ const JasonVideo = () => {
     tl.to('.jason', { delay: 1, opacity: 0, ease: 'power1.inOut' });
     tl.to('.jason-vd-inner', { opacity: 1, scale: 1.2, duration: 2, ease: 'power1.inOut' });
 
-    videoRef.current.onloadedmetadata = () => {
-      tl.to(
-        videoRef.current,
-        { currentTime: videoRef.current.duration, duration: 3, ease: 'power1.inOut' },
-        '<'
-      )
+    if (!videoRef.current) return;
+    const video = videoRef.current;
+    video.onloadedmetadata = () => {
+      tl.to(video, { currentTime: video.duration, duration: 3, ease: 'power1.inOut' }, '<')
         .to('.jasonNextTitle', { opacity: 1, duration: 0.5, ease: 'power1.inOut' })
         .to('.jason-vd-inner', { opacity: 0, duration: 1, scale: 1, ease: 'power1.inOut' }, '>')
         .to('.jasonNextTitle', { y: '-30vh', duration: 1.5 });

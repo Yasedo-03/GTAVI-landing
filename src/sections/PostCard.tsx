@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
 const PostCard = () => {
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -15,12 +15,10 @@ const PostCard = () => {
       },
     });
 
-    videoRef.current.onloadedmetadata = () => {
-      tl.to(
-        videoRef.current,
-        { currentTime: videoRef.current.duration, duration: 3, ease: 'power1.inOut' },
-        '<'
-      );
+    if (!videoRef.current) return;
+    const video = videoRef.current;
+    video.onloadedmetadata = () => {
+      tl.to(video, { currentTime: video.duration, duration: 3, ease: 'power1.inOut' }, '<');
     };
   });
 
